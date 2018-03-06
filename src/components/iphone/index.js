@@ -25,19 +25,35 @@ export default class Iphone extends Component {
 	// a constructor with initial set states
 	constructor(props){
 		super(props);
+		// temperature state
+		this.state.temp = "";
+		this.state.date = Date.now();
+		// button display state
+		this.setState({ display: true });
 	}
 
 
 	// a call to fetch weather data via wunderground
 	fetchWeatherData = () => {
 		// API URL with a structure of : ttp://api.wunderground.com/api/key/feature/q/country-code/city.json
-		var url = "http://api.wunderground.com/api/d828a5dff7d361e4/conditions/q/UK/London.json";
+		var snowReportUrl = "http://api.weatherunlocked.com/api/snowreport/54883461?app_id=3962eedb&app_key=fda3e707923d6caa68bd2cba54a400f3";
+		var resortForecastUrl = "http://api.weatherunlocked.com/api/resortforecast/54883461?app_id=3962eedb&app_key=fda3e707923d6caa68bd2cba54a400f3"
 		$.ajax({
-			url: url,
-			dataType: "jsonp",
-			success : this.parseResponse,
+			url: resortForecastUrl,
+
+			success : this.parseResortForecast,
 			error : function(req, err){ console.log('API call failed ' + err); }
 		})
+
+		$.ajax({
+			url: snowReportUrl,
+
+			success : this.parseSnowReport,
+			error : function(req, err){ console.log('API call failed ' + err); }
+		})
+
+		// once the data grabbed, hide the button
+		this.setState({ display: false });
 	}
 
 	// the main render method for the iphone component
@@ -46,6 +62,7 @@ export default class Iphone extends Component {
 		// check if temperature data is fetched, if so add the sign styling to the page
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
 		// display all weather data
+
 		return (
 			<div class={ style.container } >
 
@@ -195,34 +212,45 @@ export default class Iphone extends Component {
 			</div>
 		);
 	}
-	parseResponse = (parsed_json) => {
-		var location = parsed_json['current_observation']['display_location']['full'];
-		var temp_c = parsed_json['current_observation']['temp_c'];
-		var conditions = parsed_json['current_observation']['weather'];
-		var humid = parsed_json['current_observation']['relative_humidity'];
-		var wind_c = parsed_json['current_observation']['windchill_c'];
-		var sunrise = parsed_json['current_observation']['local_tz_short'];
-		var senset = parsed_json['current_observation']['local_tz_short'];
-		var d = parsed_json['current_observation']['local_time_rfc822'];
-		var feel = parsed_json['current_observation']['feelslike_c'];
 
-		var day=d.substring(0,3);
-		var date=d.substring(5,16);
-		var time=d.substring(17,22);
+	parseResortForecast = (parsed_json) => {
 
+		var location = parsed_json['name'];
+		var temp_c = parsed_json['forecast'][0]['base']['temp_c'];
+		var feels_like = parsed_json['forecast'][0]['base']['feelslike_c'];
+		var relative_humidity = parsed_json['forecast'][0]['hum_pct'];
+		var wind_speed = parsed_json['forecast'][0]['base']['windspd_kmh'];
+
+		//var hourly = parsed_json['hourly_forecast'].map((result) => <HourlyResult result={result}/>);
 		// set states for fields so they could be rendered later on
 		this.setState({
 			locate: location,
 			temp: temp_c,
-			cond : conditions,
-			humidity : humid,
-			windchill : wind_c,
-			sunrise : sunrise,
-			sunset : senset,
-			day: day,
-			date: date,
-			time: time,
-			feels: feel
+			feels_like: feels_like,
+			humidity: relative_humidity,
+			wind: wind_speed,
+			//hourly_cond: hourly
 		});
+
 	}
+
+
+	parseSnowReport = (parsed_json) => {
+		var conditions = parsed_json['conditions'];
+		var lowersnow_cm = parsed_json['lowersnow_cm'];
+
+		this.setState({
+			conditions: conditions,
+			lowersnow: lowersnow_cm
+		})
+	}
+
+
+
 }
+
+const HourlyResult = ({ result }) => (
+	<div>
+		Hour: <span>{result.FCTTIME.hour}</span>
+	</div>
+)
