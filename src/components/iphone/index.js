@@ -3,11 +3,9 @@ import { h, render, Component } from 'preact';
 // import stylesheets for ipad & button
 import style from './style';
 import style_iphone from '../button/style_iphone';
-import style_button from '../button_img/style_button';
+import style_button from '../button/style_button';
 import refresh from '../../assets/icons/refresh.png';
 import sbarImg from '../../assets/icons/sidebar.png';
-import appname from '../../assets/icons/app.png';
-import dash from '../../assets/backgrounds/dashboard.png';
 import widImg from '../../assets/icons/weather_icons/snowy_copy.png';
 import sunset from '../../assets/icons/weather_icons/sunset.png';
 import sunrise from '../../assets/icons/weather_icons/sunrise.png';
