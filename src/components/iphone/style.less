@@ -1,28 +1,284 @@
 @import '~style/helpers';
 
-.container { 
+.container {
 	display: flex;
 	flex-direction: column;
-	background-image: url('../../assets/backgrounds/clear-iphone.jpg');
+	background-image: url('../../assets/backgrounds/wallpapers.jpg');
+	background-size: 414px 736px;
 	color: #fff;
 	width: 414px;
 	height: 736px;
 	text-align: center;
-	padding-top: 80px;
+	padding-top: 5px;
 	margin: 0 auto;
 }
-.header {
+.header{
+	display: flex;
+	flex-direction: row;
+	position: fixed;
+	top: 0;
+	left: 414;
+	border-radius: 0px 0px 2px 2px;
+	width: 414px;
+	height: 32px;
+	background-color: rgba(0, 0, 0, 1);
+  border: 1px #000000;
+}
+.appName{
+	color: white;
+	font-style: italic;
+	font-family: "marker felt";
+	font-size: 24px;
+	height: 35px;
+	align-items: center;
+	margin: 20px;
+	padding: 0px;
+}
+.header p {
+  font-weight: bold;
+  color: white;
+	width: 359px;
+	align-self: center;
+}
+.body{
+	flex: 2;
 	display: flex;
 	flex-direction: column;
-	flex: 1;
+	align-items: center;
+}
+.dashboard{
+	width: 400px;
+	height: 240px;
+}
+.rect{
+	margin-top: 15px;
+	background-color: rgba(0, 0, 0, 0.7);
+	border: 1px #000000;
+	width: 382px;
+	height: 206px;
+	border-radius: 10px 10px 10px 10px;
+	align-items: center;
+}
+.semi{
+		align-self: center;
+		background-color: rgba(0, 0, 0, 0.7);
+		width: 90px;
+		height: 45px;
+		border-radius: 0px 0px 55px 55px;
+}
+.top_widget{
+	display: flex;
+	flex-direction: row;
+	width: 382px;
+	height: 50%;
+}
+.twt{
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	margin: 2px;
+}
+.twm{
+	margin: 2px;
+		width: 40%;
+}
+.twb{
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	margin: 2px;
+}
+.data1{
+	height: 60%;
+	margin: 5px;
+	padding: 5px;
+	align-items: center;
+	font-family: "Ayuthaya";
+	color: #FFFFFF;
+	font-size: 32px;
+}
+.data2{
+	height: 20%;
+	margin: 5px;
+	align-items: center;
+	font-family: "Heiti TC";
+	color: #FFFFFF;
+	font-size: 13px;
+}
+.twm img{
+	width: 111px;
+	height: 111px;
+	margin: 2px;
+}
+.middle_widget{
+	display: flex;
+	flex-direction: row;
+	width: 382px;
+	height: 25%;
+}
+.date{
+	width: 30%;
+	margin: 2px;
+	height: 60%;
+	color: #FFFFFF;
+	font-family: "Noteworthy";
+	font-size: 16px;
+	font-weight: bold;
+}
+.time{
+	width: 40%;
+	margin: 2px;
+	color: #FFFFFF;
+	font-family: "Heiti TC";
+	font-weight: bold;
+	font-size: 36px;
+	align-self: center;
+}
+.bottom_widget{
+	display: flex;
+	flex-direction: row;
+	width: 382px;
+	height: 25%;
+}
+.bwi{
+	display: flex;
+	flex-direction: column;
+	width: 15%;
+	margin: 5px;
+	align-items: center;
+
+}
+.bwi div{
+	color: #FFFFFF;
+	font-size: 15px;
+	font-family: "Heiti TC";
+	margin: 2px;
+}
+.bwi img{
+	width: 20px;
+	height: 20px;
+	margin: 1px;
+}
+.bwc{
+	width: 30%;
+}
+.rect hr{
+	margin: 0px;
+	padding: 0px;
+}
+.body_details{
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	background-color: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	height: 310px;
+	margin-top: 10px;
+}
+.body_info{
+	display: flex;
+	flex-direction: row;
+	background-color: rgba(255, 255, 255, 0.7);
+	margin: 10px;
+	color: #353535;
+	width: 383px;
+	height: 44px;
+	border-radius: 10px;
+	align-items: center;
+}
+
+.body_info_1{
+	margin: 5px;
+	width: 70%;
+	color: #353535;
+	font-weight: bold;
+	align-content: flex-start;
+}
+.body_info_1 h4{
+	font-weight: 400;
+	color: black;
+	text-align:left;
+	margin-left: 30px;
+}
+.body_info_2{
+	margin: 5px;
+	height: 25px;
+	border: 1px solid #646363;
+}
+.body_info_3{
+	margin: 5px;
+	width: 25%;
+	color: #353535;
+}
+.body_info_3 h4{
+		font-weight: 300;
+		color: black;
+}
+.footer{
+	display: flex;
+	flex-direction: row;
+	width: 414px;
+	height: 60px;
+	background-color: rgba(0, 0, 0, 0.7);
+  border: 1px #000000;
+	margin-top: 10px;
+}
+
+.footer p {
+  font-weight: bold;
+  color: white;
+}
+
+.footer_head h3 {
+  font-weight: bold;
+  color: white;
+	margin: -2px;
+}
+.dh{
+	width: 65px;
+	margin-left: 2px;
+	border: 1px solid #a2a2a2;
+}
+h3.footer_day{
+  color: #a2a2a2;
+}
+.footer_head{
+	display: flex;
+	flex-direction: column;
+	margin: 5px;
+	margin-left: 0px;
+	align-self: center;
+	font-family: "Heiti TC";
+	font-size: 15px;
+}
+.footer_details{
+	flex: 4;
+	display: flex;
+	flex-direction: row;
+	align-self: center;
+	margin: 5px;
+	align-self: center;
+	width: 20px;
+	height: 90%;
+}
+.footer_info{
+	margin: 5px;
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	width: 18%;
+	height: 90%;
+}
+.footer_info img{
+	width: 35px;
+	height: 35px;
 }
 .details {
 	flex: 4;
 }
 .city {
-	flex: 1;
-	font-size: 1.7em;
-	font-weight: 400;	
+	font-size: 1em;
+	font-weight: 400;
 }
 .conditions {
 	flex: 1;
