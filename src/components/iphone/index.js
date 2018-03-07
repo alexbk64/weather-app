@@ -2,9 +2,6 @@
 import { h, render, Component } from 'preact';
 // import stylesheets for ipad & button
 import style from './style';
-import style_iphone from '../button/style_iphone';
-<<<<<<< Updated upstream
-import style_button from '../button/style_button';
 =======
 >>>>>>> Stashed changes
 import refresh from '../../assets/icons/refresh.png';
@@ -16,9 +13,6 @@ import humidity from '../../assets/icons/weather_icons/humidity.png';
 import windChill from '../../assets/icons/weather_icons/wind_chill.png';
 // import jquery for API calls
 import $ from 'jquery';
-// import the Button component
-import Button from '../button';
-//import Bmg from '../button_img';
 
 export default class Iphone extends Component {
 //var Iphone = React.createClass({
@@ -81,11 +75,15 @@ export default class Iphone extends Component {
 
 		return (
 			<div class={ style.container } >
-
-
+			
+					<div class={ style.header }>
+						<img src={sbarImg} class={ style.options }/>
+						<p>{this.state.locate}</p>
+						<img src={refresh} class={ style.refresh } onClick={ this.fetchWeatherData }/>
+					</div>
 
 					<div class={style.appName}>
-					<h3>SkiWe</h3>
+					<h3>WeSki</h3>
 					</div>
 
 					<div class={style.body}>
