@@ -10,7 +10,9 @@ import sunset from '../../assets/icons/weather_icons/sunset.png';
 import sunrise from '../../assets/icons/weather_icons/sunrise.png';
 import humidity from '../../assets/icons/weather_icons/humidity.png';
 import windChill from '../../assets/icons/weather_icons/wind_chill.png';
-//import back from '../../assets/icons/back.png';
+import back from '../../assets/icons/back.png';
+// import settings div
+import Setting from './setting';
 // import jquery for API calls
 import $ from 'jquery';
 
@@ -26,8 +28,11 @@ export default class Iphone extends Component {
 		this.state.daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		this.state.temp = "";
 		this.state.date = new Date();
-		// menu display state
-		this.setState({ display: false });
+		// button display state
+		this.setState({
+			display: false,
+			setting: false
+		});
 	}
 
 	//this method is called when an instance of a component is being created and inserted into the DOM
@@ -39,6 +44,15 @@ export default class Iphone extends Component {
 	}
 	sidebarHide = () =>{
 		this.setState({display: false});
+	}
+	showSetting = () =>{
+		this.setState({
+			setting: true,
+			display: false
+		});
+	}
+	hideSetting = () =>{
+		this.setState({setting: false});
 	}
 
 	// a call to fetch weather data via wunderground
@@ -230,6 +244,9 @@ export default class Iphone extends Component {
 						</div>
 					</div>
 
+					{this.state.setting?
+						<Setting clickFunction={this.hideSetting}/>
+					: null}
 			</div>
 		);
 	}
