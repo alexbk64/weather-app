@@ -11,6 +11,7 @@ import sunset from '../../assets/icons/weather_icons/sunset.png';
 import sunrise from '../../assets/icons/weather_icons/sunrise.png';
 import humidity from '../../assets/icons/weather_icons/humidity.png';
 import windChill from '../../assets/icons/weather_icons/wind_chill.png';
+import back from '../../assets/icons/back.png';
 // import jquery for API calls
 import $ from 'jquery';
 
@@ -33,6 +34,12 @@ export default class Iphone extends Component {
 	//this method is called when an instance of a component is being created and inserted into the DOM
 	componentWillMount() {
 		this.fetchWeatherData();
+	}
+	sidebarShow = () =>{
+		this.setState({display: true});
+	}
+	sidebarHide = () =>{
+		this.setState({display: false});
 	}
 
 	// a call to fetch weather data via wunderground
@@ -81,7 +88,29 @@ export default class Iphone extends Component {
 						<p>{this.state.locate}</p>
 						<img src={refresh} class={ style.refresh } onClick={ this.fetchWeatherData }/>
 					</div>
-
+			{this.state.display? <div class={style.sidemenu} style={{display: this.state.display}}>
+							<div class={style.sm_topbar}>
+								<div class={ style.sm_appName }>
+									<u><h3>WeSki</h3></u>
+									</div>
+									<img src={ back } onClick={ this.sidebarHide }/>
+							</div>
+							<hr/>
+							<div class={style.sboption}>
+								<h4>Weather Forecast</h4>
+							</div>
+							<div class={style.sboption}>
+								<h4>Base Details</h4>
+							</div>
+							<div class={style.sboption}>
+								<h4>Summit Details</h4>
+							</div>
+							<div class={style.sboption}>
+								<h4>Settings</h4>
+							</div>
+						</div>
+					: null}
+			
 					<div class={style.appName}>
 					<h3>WeSki</h3>
 					</div>
