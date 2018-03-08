@@ -2,8 +2,7 @@
 import { h, render, Component } from 'preact';
 // import stylesheets for ipad & button
 import style from './style';
-=======
->>>>>>> Stashed changes
+import style_iphone from '../button/style_iphone';
 import refresh from '../../assets/icons/refresh.png';
 import sbarImg from '../../assets/icons/sidebar.png';
 import widImg from '../../assets/icons/weather_icons/snowy_copy.png';
@@ -11,7 +10,7 @@ import sunset from '../../assets/icons/weather_icons/sunset.png';
 import sunrise from '../../assets/icons/weather_icons/sunrise.png';
 import humidity from '../../assets/icons/weather_icons/humidity.png';
 import windChill from '../../assets/icons/weather_icons/wind_chill.png';
-import back from '../../assets/icons/back.png';
+//import back from '../../assets/icons/back.png';
 // import jquery for API calls
 import $ from 'jquery';
 
@@ -27,8 +26,8 @@ export default class Iphone extends Component {
 		this.state.daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 		this.state.temp = "";
 		this.state.date = new Date();
-		// button display state
-		this.setState({ display: true });
+		// menu display state
+		this.setState({ display: false });
 	}
 
 	//this method is called when an instance of a component is being created and inserted into the DOM
@@ -67,8 +66,6 @@ export default class Iphone extends Component {
 			error : function(req, err){ console.log('API call failed ' + err); }
 		})
 
-		// once the data grabbed, hide the button
-		this.setState({ display: false });
 	}
 
 	// the main render method for the iphone component
@@ -82,18 +79,18 @@ export default class Iphone extends Component {
 
 		return (
 			<div class={ style.container } >
-			
+
 					<div class={ style.header }>
-						<img src={sbarImg} class={ style.options }/>
+						<img src={sbarImg} class={ style.options } onClick={ this.sidebarShow }/>
 						<p>{this.state.locate}</p>
-						<img src={refresh} class={ style.refresh } onClick={ this.fetchWeatherData }/>
+						<img src={refresh} class={ style.refresh } onClick={ this.fetchWeatherData }  />
 					</div>
 			{this.state.display? <div class={style.sidemenu} style={{display: this.state.display}}>
 							<div class={style.sm_topbar}>
 								<div class={ style.sm_appName }>
 									<u><h3>WeSki</h3></u>
 									</div>
-									<img src={ back } onClick={ this.sidebarHide }/>
+									//<img src={ back } onClick={ this.sidebarHide }/>
 							</div>
 							<hr/>
 							<div class={style.sboption}>
@@ -110,7 +107,7 @@ export default class Iphone extends Component {
 							</div>
 						</div>
 					: null}
-			
+
 					<div class={style.appName}>
 					<h3>WeSki</h3>
 					</div>
@@ -131,19 +128,18 @@ export default class Iphone extends Component {
 									<img src={ widImg }/>
 								</div>
 								<div class={style.twb}>
-									<div class={style.data1}></div>
+									<div class={style.data1}> { this.state.description }</div>
 									<hr/>
-									<div class={style.data2}></div>
+									<div class={style.data2}>
+
+									</div>
 								</div>
 							</div>
 							<div class={style.middle_widget }>
 							<div class={style.date}>
 							{this.state.date.toLocaleDateString()}
 							</div>
-							<div class={style.time}>
-							{this.state.date.toLocaleTimeString('en-GB', { hour: "numeric",
-                                             minute: "numeric"})}
-							</div>
+							<Clock />
 							<div class={style.date}>
 							{this.state.daysOfWeek[this.state.date.getDay()]}
 							</div>
@@ -152,7 +148,7 @@ export default class Iphone extends Component {
 							<div class={style.bottom_widget }>
 								<div class={style.bwi}>
 								<img src={humidity}/>
-								<div>{this.state.humidity}</div>
+								<div>{this.state.humidity}%</div>
 								</div>
 								<div class={style.bwi}>
 								<img src={windChill}/>
@@ -175,11 +171,11 @@ export default class Iphone extends Component {
 						<div class={style.body_details}>
 							<div class={style.body_info}>
 							<div class={style.body_info_1}>
-							<h4>Chances of rain/snow</h4>
+							<h4>Amount of precipitation</h4>
 							</div>
 							<hr class={style.body_info_2}/>
 							<div class={style.body_info_3}>
-							<h4>{this.state.cond}</h4>
+							<h4>{this.state.precipitations}mm</h4>
 							</div>
 							</div>
 							<div class={style.body_info}>
@@ -206,7 +202,7 @@ export default class Iphone extends Component {
 							</div>
 							<hr class={style.body_info_2}/>
 							<div class={style.body_info_3}>
-							<h4>{this.state.conditions}</h4>
+							<h6>{this.state.conditions}</h6>
 							</div>
 							</div>
 							<div class={style.body_info}>
@@ -245,21 +241,33 @@ export default class Iphone extends Component {
 		var feels_like = parsed_json['forecast'][0]['base']['feelslike_c'];
 		var relative_humidity = parsed_json['forecast'][0]['hum_pct'];
 		var wind_speed = parsed_json['forecast'][0]['base']['windspd_kmh'];
-		var hourly_temp = [];
+		var description = parsed_json['forecast'][0]['base']['wx_desc'];
+		var precipitations_mm = parsed_json['forecast'][0]['precip_mm'];
+		var hourly_forecast = [];
+
 
 		for(var i = 0; i < 6; i++) {
-			hourly_temp.push(parsed_json['forecast'][i+1]['base']['temp_c']);
+			var forecast = {
+				icon: parsed_json['forecast'][i+1]['base']['wx_icon'],
+				hour: parsed_json['forecast'][i+1]['time'],
+				temp: parsed_json['forecast'][i+1]['base']['temp_c']
+			}
+			hourly_forecast.push(forecast);
 		}
 
-		var hourly_temp_html = hourly_temp.map(function(temp) {
+		var hourly_temp_html = hourly_forecast.map(function(data) {
+			var src = "../../assets/icons/" + data.icon;
 			return (
 				<div class={style.footer_info}>
-					{temp}
+
+					<img src={src} />
+					{data.hour}
+					<br/>{data.temp}
 				</div>
 			)
 		})
 
-		//var hourly = parsed_json['hourly_forecast'].map((result) => <HourlyResult result={result}/>);
+
 		// set states for fields so they could be rendered later on
 		this.setState({
 			locate: location,
@@ -267,7 +275,9 @@ export default class Iphone extends Component {
 			feels_like: feels_like,
 			humidity: relative_humidity,
 			wind: wind_speed,
-			hourly_temp: hourly_temp_html
+			hourly_temp: hourly_temp_html,
+			description: description,
+			precipitations: precipitations_mm
 		});
 
 	}
@@ -299,8 +309,36 @@ export default class Iphone extends Component {
 
 }
 
-const HourlyResult = ({ result }) => (
-	<div>
-		Hour: <span>{result.FCTTIME.hour}</span>
-	</div>
-)
+
+class Clock extends Component {
+		constructor(props) {
+			super(props);
+			this.state = {date: new Date()};
+		}
+
+		componentDidMount() {
+			this.timerID = setInterval(
+				() => this.tick(),
+				1000
+			)
+		}
+
+		componentWillUnmount() {
+			clearInterval(this.timerID);
+		}
+
+		tick() {
+			this.setState({
+				date: new Date()
+			});
+		}
+
+		render() {
+			return (
+				<div class={style.time}>
+					{this.state.date.toLocaleTimeString('en-GB', { hour: "numeric",
+																			 minute: "numeric"})}
+				</div>
+			)
+		}
+}
