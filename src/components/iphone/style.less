@@ -52,6 +52,63 @@
 	width: 359px;
 	align-self: center;
 }
+.sidemenu{
+	position: absolute;
+	flex-direction: column;
+	top:0;
+	left: 414;
+	background-color: rgba(28, 28, 28, 1);
+	width: 238px;
+	height: 736px;
+	opacity: 1;
+  transition: opacity 500ms ease-in;
+
+}
+.sm_topbar{
+	display: flex;
+	flex-direction: row;
+		align-items: center;
+}
+.sm_topbar img{
+  width: 30px;
+  height: 30px;
+	align-items: flex-end;
+}
+.sidemenu hr{
+	width: 87%;
+	margin-top: 30px;
+	margin-bottom: -5px;
+	border: 0.5px solid rgba(151, 151, 151, 1);
+}
+.sboption{
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid rgba(151, 151, 151, 1);
+	margin-left: 15px;
+	margin-right: 15px;
+	padding: 5px;
+	height: 50px;
+	align-content: flex-start;
+	font-family: "Heiti TC";
+	font-size: 15px;
+	align-content: flex-start;
+	align-items: center;
+}
+.sboption:hover {
+    transform: scale(1.02);
+	color: rgba(74, 144, 226, 1);
+}
+.sm_appName{
+	color: white;
+	font-style: italic;
+	font-family: "marker felt";
+	font-size: 24px;
+	width: 80%;
+	height: 35px;
+	align-items: center;
+	margin: 20px;
+	padding: 0px;
+}
 .body{
 	flex: 2;
 	display: flex;
