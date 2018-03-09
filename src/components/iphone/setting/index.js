@@ -33,16 +33,36 @@ export default class Setting extends Component {
 					</div>
 					<div class={style.body_info}>
 					<h4>Type of Skier</h4>
+					<select class={style.unit}>
+						<option>Freestyle skiing</option>
+						<option>option 2</option>
+						<option>option 3</option>
+						<option>option 4</option>
+						<option>option 5</option>
+					</select>
 					</div>
 						<div class={style.body_info}>
 							<h4>Unit of Temp</h4>
-							<div class={style.unit}></div>
+							<select class={style.unit}>
+								<option>Celsius</option>
+								<option>Fahrenheit</option>
+							</select>
 						</div>
 						<div class={style.body_info}>
 							<h4>Unit of Depth</h4>
+							<div class={style.rightinfo}>
+							<select class={style.unit}>
+								<option>inches</option>
+								<option>meters</option>
+							</select>
+							</div>
 						</div>
 						<div class={style.body_info}>
 							<h4>Unit of Speed</h4>
+							<select class={style.unit}>
+								<option>kph</option>
+								<option>mph</option>
+							</select>
 						</div>
 						<div class={style.body_info}>
 							<h4>Live background</h4>
