@@ -116,7 +116,7 @@ export default class Iphone extends Component {
 							<div class={style.sboption}>
 								<h4>Summit Details</h4>
 							</div>
-							<div class={style.sboption}>
+							<div class={style.sboption} onClick={ this.showSetting}>
 								<h4>Settings</h4>
 							</div>
 						</div>
